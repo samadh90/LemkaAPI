@@ -1,0 +1,11 @@
+﻿CREATE TABLE [dbo].[ProduitStatuts]
+(
+	[Id] INT NOT NULL PRIMARY KEY IDENTITY,
+	[ProduitId] INT NOT NULL,
+	[StatutId] INT NOT NULL,
+	[StartedAt] DATETIME2(0) NOT NULL DEFAULT GETDATE(),
+	[EndedAt] DATETIME2(0) NULL,
+
+	FOREIGN KEY ([ProduitId]) REFERENCES Produits([Id]),
+	FOREIGN KEY ([StatutId]) REFERENCES Statuts([Id])
+)

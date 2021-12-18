@@ -1,0 +1,9 @@
+﻿CREATE TABLE [dbo].[Mesures]
+(
+	[Id] INT NOT NULL PRIMARY KEY IDENTITY,
+	[Nom] NVARCHAR(100) NOT NULL,
+	[Description] TEXT NULL,
+	[Image] NVARCHAR(255) NULL,
+
+    CONSTRAINT [UC_Mesures_Nom] UNIQUE(Nom)
+)

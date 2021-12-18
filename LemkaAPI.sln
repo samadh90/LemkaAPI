@@ -1,0 +1,59 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.31903.59
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{00D1A9C2-B5F0-4AF3-8072-F6C62B433612}") = "Lemka.DB", "Lemka.DB\Lemka.DB.sqlproj", "{9DEA6BA3-AA21-4B9A-9344-4D6943522796}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Lemka.DAL", "Lemka.DAL\Lemka.DAL.csproj", "{7D94527A-97E4-4108-914E-D3DA07CF2BAA}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Lemka.BLL", "Lemka.BLL\Lemka.BLL.csproj", "{F559097E-5A15-4368-BCDF-AEBA95E37812}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Lemka.UIL", "Lemka.UIL\Lemka.UIL.csproj", "{C47DE86B-661A-48F6-A312-5651780A55B6}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "[00] Database", "[00] Database", "{154FA56D-F1BA-45A8-BE5E-059CAED48EB6}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "[10] DAL", "[10] DAL", "{5FCB3315-F3DD-4474-BD6D-E97721C672AC}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "[20] BLL", "[20] BLL", "{F82A5996-613F-4DB7-9644-312318669F36}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "[30] UIL", "[30] UIL", "{BA628480-3227-4235-B9A1-28FEDE581D1D}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{9DEA6BA3-AA21-4B9A-9344-4D6943522796}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9DEA6BA3-AA21-4B9A-9344-4D6943522796}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9DEA6BA3-AA21-4B9A-9344-4D6943522796}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{9DEA6BA3-AA21-4B9A-9344-4D6943522796}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9DEA6BA3-AA21-4B9A-9344-4D6943522796}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9DEA6BA3-AA21-4B9A-9344-4D6943522796}.Release|Any CPU.Deploy.0 = Release|Any CPU
+		{7D94527A-97E4-4108-914E-D3DA07CF2BAA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7D94527A-97E4-4108-914E-D3DA07CF2BAA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7D94527A-97E4-4108-914E-D3DA07CF2BAA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7D94527A-97E4-4108-914E-D3DA07CF2BAA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F559097E-5A15-4368-BCDF-AEBA95E37812}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F559097E-5A15-4368-BCDF-AEBA95E37812}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F559097E-5A15-4368-BCDF-AEBA95E37812}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F559097E-5A15-4368-BCDF-AEBA95E37812}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C47DE86B-661A-48F6-A312-5651780A55B6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C47DE86B-661A-48F6-A312-5651780A55B6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C47DE86B-661A-48F6-A312-5651780A55B6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C47DE86B-661A-48F6-A312-5651780A55B6}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{9DEA6BA3-AA21-4B9A-9344-4D6943522796} = {154FA56D-F1BA-45A8-BE5E-059CAED48EB6}
+		{7D94527A-97E4-4108-914E-D3DA07CF2BAA} = {5FCB3315-F3DD-4474-BD6D-E97721C672AC}
+		{F559097E-5A15-4368-BCDF-AEBA95E37812} = {F82A5996-613F-4DB7-9644-312318669F36}
+		{C47DE86B-661A-48F6-A312-5651780A55B6} = {BA628480-3227-4235-B9A1-28FEDE581D1D}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {BACA6962-6611-481F-9D67-EBB022FF3652}
+	EndGlobalSection
+EndGlobal

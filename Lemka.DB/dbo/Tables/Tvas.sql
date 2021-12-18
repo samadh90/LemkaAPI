@@ -1,0 +1,8 @@
+﻿CREATE TABLE [dbo].[Tvas]
+(
+	[Id] INT NOT NULL PRIMARY KEY IDENTITY,
+	[Taux] FLOAT NOT NULL DEFAULT 0.00,
+	[Applicable] BIT NOT NULL DEFAULT 1,
+
+    CONSTRAINT [CK_Tvas_Taux] CHECK (Taux >= 0.00 AND Taux <= 1.00)
+)

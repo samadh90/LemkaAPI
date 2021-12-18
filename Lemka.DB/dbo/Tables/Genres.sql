@@ -1,0 +1,7 @@
+﻿CREATE TABLE [dbo].[Genres]
+(
+	[Id] INT NOT NULL PRIMARY KEY IDENTITY,
+	[Nom] NVARCHAR(50) NOT NULL,
+
+	CONSTRAINT UC_Genres_Nom UNIQUE (Nom)
+)

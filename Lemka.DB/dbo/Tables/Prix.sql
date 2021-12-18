@@ -1,0 +1,12 @@
+﻿CREATE TABLE [dbo].[Prix]
+(
+	[Id] INT NOT NULL PRIMARY KEY IDENTITY,
+	[ProduitId] INT NOT NULL,
+	[Montant] DECIMAL(9, 2) NOT NULL,
+	[StartedAt] DATETIME2(0) NOT NULL DEFAULT GETDATE(),
+	[EndedAt] DATETIME2(0) NULL,
+	[IsPromotion] BIT NOT NULL DEFAULT 0,
+
+	FOREIGN KEY ([ProduitId]) REFERENCES Produits([Id]),
+    CHECK ([Montant] >= 0.0)
+)

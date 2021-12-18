@@ -1,0 +1,8 @@
+﻿CREATE TABLE [dbo].[Categories]
+(
+	[Id] INT NOT NULL PRIMARY KEY IDENTITY,
+	[ParentId] INT NULL,
+	[Nom] NVARCHAR(50) NOT NULL UNIQUE,
+	
+	FOREIGN KEY ([ParentId]) REFERENCES Categories([Id])
+)

@@ -1,0 +1,143 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="4.0">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <Name>Lemka.DB</Name>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectVersion>4.1</ProjectVersion>
+    <ProjectGuid>{9dea6ba3-aa21-4b9a-9344-4d6943522796}</ProjectGuid>
+    <DSP>Microsoft.Data.Tools.Schema.Sql.Sql140DatabaseSchemaProvider</DSP>
+    <OutputType>Database</OutputType>
+    <RootPath>
+    </RootPath>
+    <RootNamespace>Lemka.DB</RootNamespace>
+    <AssemblyName>Lemka.DB</AssemblyName>
+    <ModelCollation>1033, CI</ModelCollation>
+    <DefaultFileStructure>BySchemaAndSchemaType</DefaultFileStructure>
+    <DeployToDatabase>True</DeployToDatabase>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+    <TargetLanguage>CS</TargetLanguage>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <SqlServerVerification>False</SqlServerVerification>
+    <IncludeCompositeObjects>True</IncludeCompositeObjects>
+    <TargetDatabaseSet>True</TargetDatabaseSet>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <OutputPath>bin\Release\</OutputPath>
+    <BuildScriptName>$(MSBuildProjectName).sql</BuildScriptName>
+    <TreatWarningsAsErrors>False</TreatWarningsAsErrors>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <DefineDebug>false</DefineDebug>
+    <DefineTrace>true</DefineTrace>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <OutputPath>bin\Debug\</OutputPath>
+    <BuildScriptName>$(MSBuildProjectName).sql</BuildScriptName>
+    <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <DefineDebug>true</DefineDebug>
+    <DefineTrace>true</DefineTrace>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">11.0</VisualStudioVersion>
+    <!-- Default to the v11.0 targets path if the targets file for the current VS version is not found -->
+    <SSDTExists Condition="Exists('$(MSBuildExtensionsPath)\Microsoft\VisualStudio\v$(VisualStudioVersion)\SSDT\Microsoft.Data.Tools.Schema.SqlTasks.targets')">True</SSDTExists>
+    <VisualStudioVersion Condition="'$(SSDTExists)' == ''">11.0</VisualStudioVersion>
+  </PropertyGroup>
+  <Import Condition="'$(SQLDBExtensionsRefPath)' != ''" Project="$(SQLDBExtensionsRefPath)\Microsoft.Data.Tools.Schema.SqlTasks.targets" />
+  <Import Condition="'$(SQLDBExtensionsRefPath)' == ''" Project="$(MSBuildExtensionsPath)\Microsoft\VisualStudio\v$(VisualStudioVersion)\SSDT\Microsoft.Data.Tools.Schema.SqlTasks.targets" />
+  <ItemGroup>
+    <Folder Include="Properties" />
+    <Folder Include="dbo" />
+    <Folder Include="dbo\Tables" />
+    <Folder Include="dbo\StoredProcedures" />
+    <Folder Include="dbo\Scrypts" />
+    <Folder Include="dbo\Views" />
+    <Folder Include="PublishLocations" />
+    <Folder Include="dbo\Functions" />
+    <Folder Include="dbo\StoredProcedures\Produits" />
+    <Folder Include="dbo\StoredProcedures\Utilisateurs" />
+    <Folder Include="dbo\StoredProcedures\DemandeDevis" />
+    <Folder Include="dbo\StoredProcedures\Devis" />
+    <Folder Include="dbo\StoredProcedures\RendezVous" />
+    <Folder Include="dbo\StoredProcedures\Mensurations" />
+    <Folder Include="dbo\StoredProcedures\Mesures" />
+    <Folder Include="dbo\StoredProcedures\Adresses" />
+    <Folder Include="dbo\StoredProcedures\MensurationMesures" />
+    <Folder Include="dbo\StoredProcedures\Categories" />
+    <Folder Include="dbo\StoredProcedures\Details" />
+  </ItemGroup>
+  <ItemGroup>
+    <Build Include="dbo\Tables\Adresses.sql" />
+    <Build Include="dbo\Tables\ProduitLikes.sql" />
+    <Build Include="dbo\Tables\ProduitTags.sql" />
+    <Build Include="dbo\Tables\DemandeDevis.sql" />
+    <Build Include="dbo\Tables\DemandeDevisProduits.sql" />
+    <Build Include="dbo\Tables\Details.sql" />
+    <Build Include="dbo\Tables\Devis.sql" />
+    <Build Include="dbo\Tables\Genres.sql" />
+    <Build Include="dbo\Tables\MensurationMesures.sql" />
+    <Build Include="dbo\Tables\Mensurations.sql" />
+    <Build Include="dbo\Tables\Mesures.sql" />
+    <Build Include="dbo\Tables\Produits.sql" />
+    <Build Include="dbo\Tables\RendezVous.sql" />
+    <Build Include="dbo\Tables\Roles.sql" />
+    <Build Include="dbo\Tables\Services.sql" />
+    <Build Include="dbo\Tables\Tags.sql" />
+    <Build Include="dbo\Tables\Tvas.sql" />
+    <Build Include="dbo\Tables\UtilisateurRoles.sql" />
+    <Build Include="dbo\Tables\Utilisateurs.sql" />
+    <Build Include="dbo\Functions\fHasher.sql" />
+    <Build Include="dbo\Functions\fSlugify.sql" />
+    <Build Include="dbo\Tables\Statuts.sql" />
+    <Build Include="dbo\Tables\UtilisateurStatuts.sql" />
+    <Build Include="dbo\Tables\Prix.sql" />
+    <Build Include="dbo\Tables\ProduitStatuts.sql" />
+    <Build Include="dbo\Tables\Images.sql" />
+    <Build Include="dbo\Tables\ProduitTvas.sql" />
+    <Build Include="dbo\Tables\Categories.sql" />
+    <Build Include="dbo\Tables\ProduitCategories.sql" />
+    <Build Include="dbo\StoredProcedures\Mesures\spMesuresInsert.sql" />
+    <Build Include="dbo\StoredProcedures\Utilisateurs\spUtilisateursLogin.sql" />
+    <Build Include="dbo\StoredProcedures\Utilisateurs\spUtilisateursRegister.sql" />
+    <Build Include="dbo\Tables\Horaires.sql" />
+    <Build Include="dbo\StoredProcedures\Utilisateurs\spUtilisateursUpdate.sql" />
+    <Build Include="dbo\Views\vUtilisateurs.sql" />
+    <Build Include="dbo\StoredProcedures\Utilisateurs\spUtilisateursUpdateStatut.sql" />
+    <Build Include="dbo\StoredProcedures\Adresses\spAdressesCreate.sql" />
+    <Build Include="dbo\StoredProcedures\Adresses\spAdressesUpdate.sql" />
+    <Build Include="dbo\StoredProcedures\Utilisateurs\spUtilisateursUpdatePassword.sql" />
+    <Build Include="dbo\StoredProcedures\Mensurations\spMensurationsInsert.sql" />
+    <Build Include="dbo\StoredProcedures\MensurationMesures\spMensurationMesuresGetAll.sql" />
+    <Build Include="dbo\StoredProcedures\MensurationMesures\spMensurationMesuresUpdate.sql" />
+    <Build Include="dbo\StoredProcedures\Produits\spProduitsInsert.sql" />
+    <Build Include="dbo\StoredProcedures\Categories\spCategoriesGetOneOrAllOrChildren.sql" />
+    <Build Include="dbo\StoredProcedures\spGenererNumero.sql" />
+    <Build Include="dbo\StoredProcedures\DemandeDevis\spDemandesDevisInsert.sql" />
+    <Build Include="dbo\Tables\Contacts.sql" />
+    <Build Include="dbo\StoredProcedures\Devis\spDevisInsert.sql" />
+    <Build Include="dbo\StoredProcedures\DemandeDevis\spDemandesDevisSubmit.sql" />
+    <Build Include="dbo\StoredProcedures\DemandeDevis\spDemandesDevisGetOneOrAll.sql" />
+    <Build Include="dbo\StoredProcedures\DemandeDevis\spDemandesDevisUpdate.sql" />
+    <Build Include="dbo\Views\vRandom.sql" />
+    <Build Include="dbo\Functions\fGenerateText.sql" />
+    <Build Include="dbo\StoredProcedures\Produits\spProduitsInsertImage.sql" />
+    <Build Include="dbo\StoredProcedures\Produits\spProduitsStatusChange.sql" />
+    <Build Include="dbo\Views\vProduits.sql" />
+    <Build Include="dbo\Views\vDemandeDevis.sql" />
+    <Build Include="dbo\StoredProcedures\Devis\spDevisGetByDDId.sql" />
+    <Build Include="dbo\StoredProcedures\Devis\spDevisDetails.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="dbo\Scrypts\Script.sql" />
+    <None Include="PublishLocations\LemkaDB.publish.xml" />
+  </ItemGroup>
+</Project>

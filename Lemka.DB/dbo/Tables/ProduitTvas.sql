@@ -1,0 +1,11 @@
+﻿CREATE TABLE [dbo].[ProduitTvas]
+(
+	[Id] INT NOT NULL PRIMARY KEY IDENTITY,
+	[ProduitId] INT NOT NULL,
+	[TvaId] INT NOT NULL,
+	[StartedAt] DATETIME2(0) NOT NULL DEFAULT GETDATE(),
+	[EndedAt] DATETIME2(0) NULL,
+
+	FOREIGN KEY ([ProduitId]) REFERENCES Produits([Id]),
+	FOREIGN KEY ([TvaId]) REFERENCES Tvas([Id]),
+)
