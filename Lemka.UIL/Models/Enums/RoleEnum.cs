@@ -2,7 +2,7 @@
 
 public enum RoleEnum
 {
-    SuperAdmin,
+    Webmaster,
     Admin,
     Staff,
     Membre

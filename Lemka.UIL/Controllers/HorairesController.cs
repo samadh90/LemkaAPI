@@ -48,7 +48,7 @@ public class HorairesController : ControllerBase
     }
 
     [HttpPut("{jour}")]
-    [Authorize(Roles = "SuperAdmin,Admin,Staff")]
+    [Authorize(Roles = "Webmaster,Admin,Staff")]
     public IActionResult Put(string jour, [FromBody] HoraireForm form)
     {
         if (!ModelState.IsValid) return BadRequest(ModelState);

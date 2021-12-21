@@ -26,7 +26,7 @@ public class HoraireRepository : IHoraireRepository
 
     public IEnumerable<HoraireData> GetAll()
     {
-        string query = "SELECT * FROM dbo.Horaires ORDER BY [JourSemaine] ASC";
+        string query = "SELECT * FROM dbo.Horaires ORDER BY [Id] ASC";
         Command command = new(query);
         return _connection.ExecuteReader(command, r => r.ToHoraire());
     }

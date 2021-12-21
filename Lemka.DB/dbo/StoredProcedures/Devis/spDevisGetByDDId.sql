@@ -6,7 +6,7 @@ BEGIN
 	BEGIN
 		SELECT 
 			ds.[Id],
-			ds.[Numero],
+			ds.[Reference],
 			ds.[Remarque],
 			(
 				SELECT SUM(cast(round((d.Quantite * d.PrixUHt * d.Tva), 2) AS NUMERIC(36,2)))

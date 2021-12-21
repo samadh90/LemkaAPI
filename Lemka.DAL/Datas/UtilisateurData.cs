@@ -3,7 +3,6 @@
 public class UtilisateurData
 {
     public int Id { get; set; }
-    public string? Username { get; set; }
     public string? Email { get; set; }
     public string? Tel { get; set; }
     public string? Image { get; set; }
@@ -20,7 +19,6 @@ public class UtilisateurData
 
 /*
  	[Id] INT NOT NULL PRIMARY KEY IDENTITY,
-	[Username] NVARCHAR(50) NOT NULL,
 	[Email] NVARCHAR(255) NOT NULL,
 	[PasswordHash] BINARY(64) NOT NULL,
     [SecurityStamp] UNIQUEIDENTIFIER NOT NULL,

@@ -1,7 +1,6 @@
 ﻿CREATE TABLE [dbo].[Adresses]
 (
-	[Id] INT NOT NULL PRIMARY KEY IDENTITY,
-	[UtilisateurId] INT NOT NULL,
+	[UtilisateurId] INT PRIMARY KEY NOT NULL,
 	[Pays] NVARCHAR(100) NOT NULL,
 	[Ville] NVARCHAR(100) NOT NULL,
 	[CodePostal] NVARCHAR(100) NOT NULL,

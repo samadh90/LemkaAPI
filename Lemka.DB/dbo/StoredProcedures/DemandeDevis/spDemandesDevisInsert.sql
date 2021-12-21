@@ -7,10 +7,9 @@
 	@EstUrgent BIT
 AS
 BEGIN
-	DECLARE @Numero NVARCHAR(50)
-	EXEC [dbo].[spGenererNumero] N'Q', @Numero OUTPUT
-	INSERT INTO dbo.DemandeDevis ([Numero], [UtilisateurId], [Titre], [Remarque], [MensurationId], [ServiceId], [EstUrgent])
-	VALUES (@Numero, @UtilisateurId, @Titre, @Remarque, @MensurationId, @ServiceId, @EstUrgent)
+	DECLARE @Reference NVARCHAR(50) = dbo.fGenerateReference('Q')
+	INSERT INTO dbo.DemandeDevis ([Reference], [UtilisateurId], [Titre], [Remarque], [MensurationId], [ServiceId], [EstUrgent])
+	VALUES (@Reference, @UtilisateurId, @Titre, @Remarque, @MensurationId, @ServiceId, @EstUrgent)
 
 	SELECT SCOPE_IDENTITY() as 'Id'
 END

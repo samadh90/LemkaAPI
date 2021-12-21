@@ -37,8 +37,7 @@ public class AdresseRepository : IAdresseRepository
 
     public AdresseData? GetUserAdresse(int userId)
     {
-        string query = "SELECT * FROM dbo.Adresses WHERE [UtilisateurId] = @UtilisateurId";
-        Command command = new(query);
+        Command command = new("spAdressesGetByUtilisateurId", true);
         command.AddParameter("UtilisateurId", userId);
         return _connection.ExecuteReader(command, r => r.ToAdresse()).SingleOrDefault();
     }

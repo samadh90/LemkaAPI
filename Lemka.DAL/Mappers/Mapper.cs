@@ -10,7 +10,6 @@ internal static class Mapper
         return new() {
             Id = (int)record["Id"],
             Email = (string)record["Email"],
-            Username = (string)record["Username"],
             Role = (string)record["Role"],
             Statut = (string)record["Statut"]
         };
@@ -20,7 +19,6 @@ internal static class Mapper
     {
         return new() {
             Id = (int)record["Id"],
-            Username = (string)record["Username"],
             Email = (string)record["Email"],
             Tel = (record["Tel"] is DBNull) ? null : (string)record["Tel"],
             Image = (record["Image"] is DBNull) ? null : (string)record["Image"],
@@ -90,7 +88,6 @@ internal static class Mapper
     internal static AdresseData ToAdresse(this IDataRecord record)
     {
         return new() {
-            Id = (int)record["Id"],
             Pays = (string)record["Pays"],
             Ville = (string)record["Ville"],
             CodePostal = (string)record["CodePostal"],
@@ -113,6 +110,7 @@ internal static class Mapper
     internal static HoraireData ToHoraire(this IDataRecord record)
     {
         return new() {
+            Id = (int)record["Id"],
             Jour = (string)record["Jour"],
             JourSemaine = (int)record["JourSemaine"],
             HeureOuverture = (record["HeureOuverture"] is DBNull) ? null : (TimeSpan)record["HeureOuverture"],
@@ -163,7 +161,7 @@ internal static class Mapper
         return new() {
             Id = (int)record["Id"],
             UtilisateurId = (int)record["UtilisateurId"],
-            Numero = (string)record["Numero"],
+            Reference = (string)record["Reference"],
             Titre = (string)record["Titre"],
             Remarque = (record["Remarque"] is DBNull) ? null : (string)record["Remarque"],
             MensurationId = (record["MensurationId"] is DBNull) ? null : (int)record["MensurationId"],
@@ -180,7 +178,7 @@ internal static class Mapper
     {
         return new() {
             Id = (int)record["Id"],
-            Numero = (string)record["Numero"],
+            Reference = (string)record["Reference"],
             Remarque = (record["Remarque"] is DBNull) ? null : (string)record["Remarque"],
             TotalTva = (record["TotalTva"] is DBNull) ? null : (decimal)record["TotalTva"],
             TotalHT = (record["TotalHT"] is DBNull) ? null : (decimal)record["TotalHT"],

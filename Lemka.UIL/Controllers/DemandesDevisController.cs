@@ -11,7 +11,7 @@ namespace Lemka.UIL.Controllers;
 
 [Route("api/[controller]")]
 [ApiController]
-[Authorize(Roles = "SuperAdmin,Admin,Staff")]
+[Authorize(Roles = "Webmaster,Admin,Staff")]
 public class DemandesDevisController : ControllerBase
 {
     private readonly IDemandeDevisService _demandeDevisService;
@@ -59,6 +59,21 @@ public class DemandesDevisController : ControllerBase
         {
             IEnumerable<ProduitModel> produits = _demandeDevisService.GetDemandeDevisProduits(id).Select(x => x.ToUil());
             return Ok(produits);
+        }
+        catch (Exception e)
+        {
+            return BadRequest(e.Message);
+        }
+    }
+
+    [HttpGet("{id}/Devis")]
+    public IActionResult GetDevis(int id)
+    {
+        try
+        {
+            DevisModel? devis = _devisService.GetDevisForDD(id)?.ToUil();
+            if (devis is null) return NotFound();
+            return Ok(devis);
         }
         catch (Exception e)
         {

@@ -22,12 +22,13 @@ public class AuthRepository : IAuthRepository
         return _connection.ExecuteReader(command, x => x.ToLoggedInUser()).SingleOrDefault();
     }
 
-    public void Register(string email, string username, string password)
+    public void Register(string email, string nom, string prenom, string password)
     {
         Command command = new("spUtilisateursRegister", true);
         command.AddParameter("Email", email);
-        command.AddParameter("Username", username);
         command.AddParameter("Password", password);
+        command.AddParameter("Nom", nom);
+        command.AddParameter("Prenom", prenom);
         _connection.ExecuteNonQuery(command);
     }
 }

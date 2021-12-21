@@ -9,7 +9,7 @@ namespace Lemka.UIL.Controllers;
 
 [Route("api/[controller]")]
 [ApiController]
-[Authorize(Roles = "SuperAdmin,Admin,Staff")]
+[Authorize(Roles = "Webmaster,Admin,Staff")]
 public class GenresController : ControllerBase
 {
     private readonly IGenreService _genreService;

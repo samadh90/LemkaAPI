@@ -30,7 +30,6 @@ public class TokenManager : ITokenManager
         {
             new Claim(ClaimTypes.Sid, model.Id.ToString()),
             new Claim(ClaimTypes.Email, model.Email),
-            new Claim("username", model.Username),
             new Claim(ClaimTypes.Role, model.Role),
             new Claim("statut", model.Statut)
         };

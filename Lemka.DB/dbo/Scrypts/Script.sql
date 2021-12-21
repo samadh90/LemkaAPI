@@ -90,25 +90,30 @@ INSERT INTO dbo.Categories ([Id], [ParentId], [Nom]) VALUES (3, 1, 'Tissus')
 SET IDENTITY_INSERT dbo.Categories OFF
 
 -- Horaires
-INSERT INTO dbo.Horaires ([Jour], [JourSemaine]) VALUES ('Dimanche', 0)
-INSERT INTO dbo.Horaires ([Jour], [JourSemaine]) VALUES ('Lundi', 1)
-INSERT INTO dbo.Horaires ([Jour], [JourSemaine]) VALUES ('Mardi', 2)
-INSERT INTO dbo.Horaires ([Jour], [JourSemaine]) VALUES ('Mercredi', 3)
-INSERT INTO dbo.Horaires ([Jour], [JourSemaine]) VALUES ('Jeudi', 4)
-INSERT INTO dbo.Horaires ([Jour], [JourSemaine]) VALUES ('Vendredi', 5)
-INSERT INTO dbo.Horaires ([Jour], [JourSemaine]) VALUES ('Samedi', 6)
+SET IDENTITY_INSERT dbo.Horaires ON
+
+INSERT INTO dbo.Horaires ([Id], [Jour]) VALUES (1, 'Lundi')
+INSERT INTO dbo.Horaires ([Id], [Jour]) VALUES (2, 'Mardi')
+INSERT INTO dbo.Horaires ([Id], [Jour]) VALUES (3, 'Mercredi')
+INSERT INTO dbo.Horaires ([Id], [Jour]) VALUES (4, 'Jeudi')
+INSERT INTO dbo.Horaires ([Id], [Jour]) VALUES (5, 'Vendredi')
+INSERT INTO dbo.Horaires ([Id], [Jour]) VALUES (6, 'Samedi')
+INSERT INTO dbo.Horaires ([Id], [Jour]) VALUES (7, 'Dimanche')
+
+SET IDENTITY_INSERT dbo.Horaires OFF
 
 -- Create first dummy data
 
 -- Création d'un admin
-EXEC dbo.spUtilisateursRegister 'samadh90@hotmail.fr', 'samadh90', 'Samadh9022+'
-EXEC dbo.spUtilisateursUpdateStatut 1, 2
-UPDATE dbo.UtilisateurRoles SET [RoleId] = 1 WHERE [UtilisateurId] = 1
+EXEC dbo.spUtilisateursRegister 'samadh90@hotmail.fr', 'Samadh9022+', 'Hatsijev', 'Samad';
+EXEC dbo.spUtilisateursUpdateStatut 1, 2;
+UPDATE dbo.UtilisateurRoles SET [RoleId] = 1 WHERE [UtilisateurId] = 1;
 
 -- Création d'un membre
-EXEC dbo.spUtilisateursRegister 'crysis90war@hotmail.be', 'crysis90war', 'Samadh9022+';
+EXEC dbo.spUtilisateursRegister 'zamira_1994@hotmail.com', 'Samadh9022+', 'Hatsijeva', 'Samira';
 EXEC dbo.spUtilisateursUpdateStatut 2, 2;
-EXEC dbo.spMensurationsInsert 2, N'Premiere mensuration', N'Simple description', 0
+EXEC dbo.spMensurationsInsert 2, N'Premiere mensuration', N'Simple description', 1;
+EXEC dbo.spDemandesDevisInsert 2, N'Réparation de la tirette du pantalon', N'C''est une tirette verte de 10 cm', 1, 2, 0;
 
 -- Création d'un article
 EXEC dbo.spProduitsInsert N'Tissus', N'Description du tissus', 1, 49.99, 4, 3, 0;

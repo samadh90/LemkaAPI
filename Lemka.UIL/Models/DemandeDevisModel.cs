@@ -4,7 +4,7 @@ public class DemandeDevisModel
 {
     public int Id { get; set; }
     public int UtilisateurId { get; set; }
-    public string? Numero { get; set; }
+    public string? Reference { get; set; }
     public string? Titre { get; set; }
     public string? Remarque { get; set; }
     public ServiceModel? Service { get; set; }

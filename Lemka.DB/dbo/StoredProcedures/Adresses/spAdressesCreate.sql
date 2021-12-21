@@ -8,7 +8,7 @@
 	@Boite NVARCHAR(50)
 AS
 BEGIN
-	IF EXISTS (SELECT TOP 1 * FROM dbo.Utilisateurs WHERE [Id] = @UtilisateurId)
+	IF NOT EXISTS (SELECT TOP 1 * FROM dbo.Adresses WHERE [UtilisateurId] = @UtilisateurId)
 	BEGIN
 		INSERT INTO dbo.Adresses ([UtilisateurId], [Pays], [Ville], [CodePostal], [Rue], [Numero], [Boite])
 		VALUES (@UtilisateurId, @Pays, @Ville, @CodePostal, @Rue, @Numero, @Boite)

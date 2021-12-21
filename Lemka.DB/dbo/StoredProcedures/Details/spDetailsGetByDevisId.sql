@@ -1,8 +1,15 @@
-﻿CREATE PROCEDURE [dbo].[spDevisDetails]
+﻿CREATE PROCEDURE [dbo].[spDetailsGetByDevisId]
 	@DevisId INT
 AS
 BEGIN
-	IF EXISTS (SELECT TOP 1 * FROM dbo.Devis WHERE [Id] = @DevisId)
+	SELECT
+		[Designation],
+		[Tva],
+		[Quantite],
+		[PrixUHt],
+		[Quantite] * [PrixUHt] as 'TotalHT'
+	FROM dbo.Details WHERE [DevisId] = @DevisId
+		IF EXISTS (SELECT TOP 1 * FROM dbo.Devis WHERE [Id] = @DevisId)
 	BEGIN
 		SELECT
 			d.[Id],

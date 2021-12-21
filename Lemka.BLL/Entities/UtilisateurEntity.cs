@@ -4,7 +4,6 @@ namespace Lemka.BLL.Entities;
 public class UtilisateurEntity
 {
     public int Id { get; set; }
-    public string? Username { get; set; }
     public string? Email { get; set; }
     public string? Tel { get; set; }
     public string? Image { get; set; }

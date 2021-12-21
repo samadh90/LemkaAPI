@@ -2,7 +2,7 @@
 (
 	[Id] INT NOT NULL PRIMARY KEY IDENTITY,
 	[UtilisateurId] INT NOT NULL,
-	[Numero] NVARCHAR(50) NOT NULL UNIQUE,
+	[Reference] NVARCHAR(50) NOT NULL UNIQUE,
 	[Titre] NVARCHAR(80) NOT NULL,
 	[Remarque] TEXT NULL,
 	[MensurationId] INT NULL,

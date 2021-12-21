@@ -37,13 +37,14 @@ public class DevisRepository : IDevisRepository
 
     public IEnumerable<DetailData> GetDetailsDuDevis(int devisId)
     {
+        string query = "SELECT [Desgination], [PrixUHt], [Quantite], [] FROM dbo.[Details] WHERE [DevisId] = @DevisId";
         throw new NotImplementedException();
     }
 
     public DevisData? GetDevisForDD(int ddId)
     {
         Command command = new("spDevisGetByDDId", true);
-        command.AddParameter("@DevisId", ddId);
+        command.AddParameter("@DemandeDevisId", ddId);
         return _connection.ExecuteReader(command, r => r.ToDevis()).SingleOrDefault();
     }
 

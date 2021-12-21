@@ -1,4 +1,4 @@
-﻿using DevHopTools.Mappers;
+﻿using DevHopTools.Extensions;
 using Lemka.BLL.Entities;
 using Lemka.UIL.Models;
 using Lemka.UIL.Models.Forms;
@@ -68,7 +68,12 @@ internal static class Mapper
     internal static MensurationMesureEntity ToBll(this MensurationMesureForm form) => MapperExtension.Map<MensurationMesureEntity>(form);
 
     // Demande de devis
-    internal static DemandeDevisModel ToUil(this DemandeDevisEntity entity) => MapperExtension.Map<DemandeDevisModel>(entity);
+    internal static DemandeDevisModel ToUil(this DemandeDevisEntity entity)
+    {
+        DemandeDevisModel  demandeDevis = MapperExtension.Map<DemandeDevisModel>(entity);
+        demandeDevis.Service = entity.Service?.ToUil();
+        return demandeDevis;
+    }
     internal static DemandeDevisEntity ToBll(this DemandeDevisForm form) => MapperExtension.Map<DemandeDevisEntity>(form);
 
     // Produit

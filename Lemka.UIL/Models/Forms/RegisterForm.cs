@@ -8,10 +8,15 @@ public class RegisterForm
     [EmailAddress]
     public string Email { get; set; }
 
-    [Required]
-    [MinLength(5)]
-    [MaxLength(32)]
-    public string Username { get; set; }
+    [Required(AllowEmptyStrings = false)]
+    [MinLength(1)]
+    [MaxLength(100)]
+    public string Nom { get; set; }
+
+    [Required(AllowEmptyStrings = false)]
+    [MinLength(1)]
+    [MaxLength(100)]
+    public string Prenom { get; set; }
 
     [Required]
     [RegularExpression(@"^.*(?=.{8,})(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!*@#$%^&+=]).*$", ErrorMessage = "Le mot de passe n'est pas assez compliqué.")]

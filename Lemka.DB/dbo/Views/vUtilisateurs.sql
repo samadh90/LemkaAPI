@@ -2,7 +2,6 @@
 AS
 SELECT
 	u.[Id],
-	u.[Username],
 	u.[Email],
 	u.[Tel],
 	u.[Image],

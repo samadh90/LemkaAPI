@@ -19,8 +19,8 @@ public class AuthService : IAuthService
         return _authRepository.Login(email, password)?.ToBll();
     }
 
-    public void Register(string email, string username, string password)
+    public void Register(string email, string nom, string prenom, string password)
     {
-        _authRepository.Register(email, username, password);
+        _authRepository.Register(email, nom, prenom, password);
     }
 }

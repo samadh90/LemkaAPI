@@ -44,7 +44,7 @@ public class AuthController : ControllerBase
         if (!ModelState.IsValid) return BadRequest(ModelState);
         try
         {
-            _authService.Register(form.Email, form.Username, form.Password);
+            _authService.Register(form.Email, form.Nom, form.Prenom, form.Password);
             return NoContent();
         }
         catch (Exception e)

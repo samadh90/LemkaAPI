@@ -44,7 +44,7 @@ public class UtilisateursController : ControllerBase
     #region UTILISATEURS
 
     [HttpGet]
-    [Authorize(Roles = "SuperAdmin,Admin,Staff")]
+    [Authorize(Roles = "Webmaster,Admin,Staff")]
     public IActionResult Index()
     {
         try
@@ -83,6 +83,7 @@ public class UtilisateursController : ControllerBase
         {
             if (!ConnectedUserIsStaffOrOwner(id)) return Unauthorized();
             UtilisateurModel? utilisateur = _utilisateurService.Update(id, form.ToBll())?.ToUil();
+            if (utilisateur is null) return BadRequest();
 
             return Ok(utilisateur);
         }
@@ -287,22 +288,6 @@ public class UtilisateursController : ControllerBase
         }
     }
 
-    [HttpGet("{id}/DemandesDevis/{ddId}")]
-    public IActionResult GetDemandeDevis(int id, int ddId)
-    {
-        try
-        {
-            if (!ConnectedUserIsStaffOrOwner(id)) return Unauthorized();
-            DemandeDevisModel? demandeDevis = _demandeDevisService.GetById(ddId)?.ToUil();
-            if (demandeDevis is null) return NotFound();
-            return Ok(demandeDevis);
-        }
-        catch (Exception e)
-        {
-            return BadRequest(e.Message);
-        }
-    }
-
     [HttpPost("{id}/DemandesDevis")]
     public IActionResult PostDemandeDevis(int id, [FromBody] DemandeDevisForm form)
     {
@@ -320,6 +305,22 @@ public class UtilisateursController : ControllerBase
         }
     }
 
+    [HttpGet("{id}/DemandesDevis/{ddId}")]
+    public IActionResult GetDemandeDevis(int id, int ddId)
+    {
+        try
+        {
+            if (!ConnectedUserIsStaffOrOwner(id)) return Unauthorized();
+            DemandeDevisModel? demandeDevis = _demandeDevisService.GetById(ddId)?.ToUil();
+            if (demandeDevis is null) return NotFound();
+            return Ok(demandeDevis);
+        }
+        catch (Exception e)
+        {
+            return BadRequest(e.Message);
+        }
+    }
+
     [HttpPut("{id}/DemandesDevis/{ddId}")]
     public IActionResult PutDemandeDevis(int id, int ddId, [FromBody] DemandeDevisForm form)
     {
@@ -329,7 +330,7 @@ public class UtilisateursController : ControllerBase
             if (!ConnectedUserIsStaffOrOwner(id)) return Unauthorized();
             DemandeDevisModel? demandeDevis = _demandeDevisService.GetById(ddId)?.ToUil();
             if (demandeDevis is null) return NotFound();
-            if (demandeDevis.SubmittedAt is not null) return Forbid();
+            if (demandeDevis.SubmittedAt is not null) return BadRequest("La demande a déjà été soumise.");
             demandeDevis = _demandeDevisService.Update(ddId, form.ToBll())?.ToUil();
             if (demandeDevis is null) return BadRequest();
             return Ok(demandeDevis);
@@ -348,10 +349,29 @@ public class UtilisateursController : ControllerBase
             if (!ConnectedUserIsStaffOrOwner(id)) return Unauthorized();
             DemandeDevisModel? demandeDevis = _demandeDevisService.GetById(ddId)?.ToUil();
             if (demandeDevis is null) return NotFound();
-            if (demandeDevis.SubmittedAt is not null) return Forbid();
+            if (demandeDevis.DevisStatut is not null) return Forbid();
             bool success = _demandeDevisService.Delete(ddId);
             if (!success) return BadRequest();
             return NoContent();
+        }
+        catch (Exception e)
+        {
+            return BadRequest(e.Message);
+        }
+    }
+
+    [HttpPut("{id}/DemandesDevis/{ddId}/Soumettre")]
+    public IActionResult SubmitDemandeDevis(int id, int ddId)
+    {
+        try
+        {
+            if (!ConnectedUserIsStaffOrOwner(id)) return Unauthorized();
+            DemandeDevisModel? demandeDevis = _demandeDevisService.GetById(ddId)?.ToUil();
+            if (demandeDevis is null) return NotFound();
+            if (demandeDevis.SubmittedAt is not null) return BadRequest("La demande a déjà été soumise.");
+            demandeDevis = _demandeDevisService.Submit(ddId)?.ToUil();
+            if (demandeDevis is null) return BadRequest();
+            return Ok(demandeDevis);
         }
         catch (Exception e)
         {
@@ -568,14 +588,14 @@ public class UtilisateursController : ControllerBase
     }
 
     [HttpPut("{Id}/Role")]
-    [Authorize(Roles = "SuperAdmin,Admin")]
+    [Authorize(Roles = "Webmaster,Admin")]
     public IActionResult UpdateRole(int id, [FromBody] UserRoleForm form)
     {
         if (!ModelState.IsValid) return BadRequest(ModelState);
         try
         {
             if (id == GetConnectedUserId()) return Unauthorized();
-            // TODO - Admin ne peut pas changer le role de SuperAdmin et de l'Admin
+            // TODO - Admin ne peut pas changer le role de Webmaster et de l'Admin
             bool success = _utilisateurService.UpdateUserRole(id, form.RoleId);
             if (!success) return BadRequest();
             return NoContent();
@@ -597,7 +617,7 @@ public class UtilisateursController : ControllerBase
         bool isAuthorized;
         switch (userRole)
         {
-            case nameof(RoleEnum.SuperAdmin):
+            case nameof(RoleEnum.Webmaster):
                 isAuthorized = true;
                 break;
             case nameof(RoleEnum.Admin):

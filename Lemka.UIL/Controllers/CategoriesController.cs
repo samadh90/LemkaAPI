@@ -50,7 +50,7 @@ public class CategoriesController : ControllerBase
     }
 
     [HttpPost]
-    [Authorize(Roles = "SuperAdmin,Admin,Staff")]
+    [Authorize(Roles = "Webmaster,Admin,Staff")]
     public IActionResult Post([FromBody] CategorieForm form)
     {
         if (!ModelState.IsValid) return BadRequest(ModelState);
@@ -67,7 +67,7 @@ public class CategoriesController : ControllerBase
     }
 
     [HttpPut("{id}")]
-    [Authorize(Roles = "SuperAdmin,Admin,Staff")]
+    [Authorize(Roles = "Webmaster,Admin,Staff")]
     public IActionResult Put(int id, [FromBody] CategorieForm form)
     {
         if (!ModelState.IsValid) return BadRequest(ModelState);
@@ -84,7 +84,7 @@ public class CategoriesController : ControllerBase
     }
 
     [HttpDelete("{id}")]
-    [Authorize(Roles = "SuperAdmin,Admin,Staff")]
+    [Authorize(Roles = "Webmaster,Admin,Staff")]
     public IActionResult Delete(int id)
     {
         try

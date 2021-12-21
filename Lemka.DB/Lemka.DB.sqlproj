@@ -120,12 +120,10 @@
     <Build Include="dbo\StoredProcedures\MensurationMesures\spMensurationMesuresUpdate.sql" />
     <Build Include="dbo\StoredProcedures\Produits\spProduitsInsert.sql" />
     <Build Include="dbo\StoredProcedures\Categories\spCategoriesGetOneOrAllOrChildren.sql" />
-    <Build Include="dbo\StoredProcedures\spGenererNumero.sql" />
     <Build Include="dbo\StoredProcedures\DemandeDevis\spDemandesDevisInsert.sql" />
     <Build Include="dbo\Tables\Contacts.sql" />
     <Build Include="dbo\StoredProcedures\Devis\spDevisInsert.sql" />
     <Build Include="dbo\StoredProcedures\DemandeDevis\spDemandesDevisSubmit.sql" />
-    <Build Include="dbo\StoredProcedures\DemandeDevis\spDemandesDevisGetOneOrAll.sql" />
     <Build Include="dbo\StoredProcedures\DemandeDevis\spDemandesDevisUpdate.sql" />
     <Build Include="dbo\Views\vRandom.sql" />
     <Build Include="dbo\Functions\fGenerateText.sql" />
@@ -134,7 +132,16 @@
     <Build Include="dbo\Views\vProduits.sql" />
     <Build Include="dbo\Views\vDemandeDevis.sql" />
     <Build Include="dbo\StoredProcedures\Devis\spDevisGetByDDId.sql" />
-    <Build Include="dbo\StoredProcedures\Devis\spDevisDetails.sql" />
+    <Build Include="dbo\StoredProcedures\Adresses\spAdressesGetByUtilisateurId.sql" />
+    <Build Include="dbo\StoredProcedures\Details\spDetailsGetByDevis.sql" />
+    <Build Include="dbo\StoredProcedures\Details\spDetailsInsertForDevis.sql" />
+    <Build Include="dbo\StoredProcedures\Details\spDetailsGetByDevisId.sql" />
+    <Build Include="dbo\Functions\fGenerateReference.sql" />
+    <Build Include="dbo\Views\vRandomInt.sql" />
+    <Build Include="dbo\StoredProcedures\DemandeDevis\spDemandesDevisGetAllByUtilisateurId.sql" />
+    <Build Include="dbo\StoredProcedures\DemandeDevis\spDemandesDevisDelete.sql" />
+    <Build Include="dbo\StoredProcedures\DemandeDevis\spDemandesDevisGetByIdForUser.sql" />
+    <Build Include="dbo\StoredProcedures\DemandeDevis\spDemandesDevisGetByIdForStaff.sql" />
   </ItemGroup>
   <ItemGroup>
     <None Include="dbo\Scrypts\Script.sql" />

@@ -58,7 +58,7 @@ builder.Services.AddSwaggerGen(c =>
 builder.Services.AddAuthorization(options =>
 {
     options.AddPolicy("IsConnected", policy => policy.RequireAuthenticatedUser());
-    options.AddPolicy("SuperAdmin", policy => policy.RequireAuthenticatedUser().RequireRole("SuperAdmin"));
+    options.AddPolicy("Webmaster", policy => policy.RequireAuthenticatedUser().RequireRole("Webmaster"));
     options.AddPolicy("Admin", policy => policy.RequireAuthenticatedUser().RequireRole("Admin"));
     options.AddPolicy("Staff", policy => policy.RequireAuthenticatedUser().RequireRole("Staff"));
     options.AddPolicy("Membre", policy => policy.RequireAuthenticatedUser().RequireRole("Membre"));

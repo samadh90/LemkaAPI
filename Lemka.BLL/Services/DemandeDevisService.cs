@@ -8,10 +8,12 @@ namespace Lemka.BLL.Services;
 public class DemandeDevisService : IDemandeDevisService
 {
     private readonly IDemandeDevisRepository _demandeDevisRepository;
+    private readonly IServiceRepository _serviceRepository;
 
-    public DemandeDevisService(IDemandeDevisRepository demandeDevisRepository)
+    public DemandeDevisService(IDemandeDevisRepository demandeDevisRepository, IServiceRepository serviceRepository)
     {
         _demandeDevisRepository = demandeDevisRepository;
+        _serviceRepository = serviceRepository;
     }
 
     public DemandeDevisEntity? Create(DemandeDevisEntity entity)
@@ -45,17 +47,36 @@ public class DemandeDevisService : IDemandeDevisService
 
     public IEnumerable<DemandeDevisEntity> GetAll()
     {
-        return _demandeDevisRepository.GetAll().Select(x => x.ToBll());
+        List<DemandeDevisEntity> demandesDevis = _demandeDevisRepository.GetAll().Select(x => x.ToBll()).ToList();
+        if (demandesDevis.Count() > 0)
+        {
+            foreach (DemandeDevisEntity demandeDevis in demandesDevis)
+            {
+                demandeDevis.Service = _serviceRepository.GetById(demandeDevis.ServiceId)?.ToBll();
+            }
+        }
+        return demandesDevis;
     }
 
     public IEnumerable<DemandeDevisEntity> GetAllByUserId(int userId)
     {
-        return _demandeDevisRepository.GetAllByUserId(userId).Select(x => x.ToBll());
+        List<DemandeDevisEntity> demandesDevis = _demandeDevisRepository.GetAll().Select(x => x.ToBll()).ToList();
+        if (demandesDevis.Count() > 0)
+        {
+            foreach (DemandeDevisEntity demandeDevis in demandesDevis)
+            {
+                demandeDevis.Service = _serviceRepository.GetById(demandeDevis.ServiceId)?.ToBll();
+            }
+        }
+        return demandesDevis;
     }
 
     public DemandeDevisEntity? GetById(int key)
     {
-        return _demandeDevisRepository.GetById(key)?.ToBll();
+        DemandeDevisEntity? demandeDevis = _demandeDevisRepository.GetById(key)?.ToBll();
+        if (demandeDevis is null) return null;
+        demandeDevis.Service = _serviceRepository.GetById(demandeDevis.ServiceId)?.ToBll();
+        return demandeDevis;
     }
 
     public IEnumerable<ProduitEntity> GetDemandeDevisProduits(int ddId)

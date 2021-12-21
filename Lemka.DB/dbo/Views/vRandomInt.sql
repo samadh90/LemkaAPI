@@ -1,0 +1,2 @@
+﻿CREATE VIEW [dbo].[vRandomInt]
+	AS SELECT ABS(CAST(CAST(NEWID() AS VARBINARY) AS INT)) as [RandomInt];

@@ -18,7 +18,6 @@ BEGIN
 			SELECT TOP 1
 				u.[Id],
 				u.[Email],
-				u.[Username],
 				r.[Nom] AS 'Role',
 				s.[Nom] as 'Statut'
 			FROM dbo.UtilisateurStatuts us

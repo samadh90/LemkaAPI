@@ -2,7 +2,6 @@
 
 public class UtilisateurForm
 {
-    public string? Username { get; set; }
     public string? Tel { get; set; }
     public string? Prenom { get; set; }
     public string? Nom { get; set; }

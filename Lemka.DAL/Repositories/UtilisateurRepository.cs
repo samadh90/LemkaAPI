@@ -33,7 +33,6 @@ public class UtilisateurRepository : IUtilisateurRepository
     {
         Command command = new("spUtilisateursUpdate", true);
         command.AddParameter("Id", id);
-        command.AddParameter("Username", data.Username);
         command.AddParameter("Tel", data.Tel);
         command.AddParameter("Prenom", data.Prenom);
         command.AddParameter("Nom", data.Nom);
