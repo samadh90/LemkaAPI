@@ -123,27 +123,20 @@
     <Build Include="dbo\StoredProcedures\DemandeDevis\spDemandesDevisInsert.sql" />
     <Build Include="dbo\Tables\Contacts.sql" />
     <Build Include="dbo\StoredProcedures\Devis\spDevisInsert.sql" />
-    <Build Include="dbo\StoredProcedures\DemandeDevis\spDemandesDevisSubmit.sql" />
-    <Build Include="dbo\StoredProcedures\DemandeDevis\spDemandesDevisUpdate.sql" />
     <Build Include="dbo\Views\vRandom.sql" />
     <Build Include="dbo\Functions\fGenerateText.sql" />
     <Build Include="dbo\StoredProcedures\Produits\spProduitsInsertImage.sql" />
     <Build Include="dbo\StoredProcedures\Produits\spProduitsStatusChange.sql" />
     <Build Include="dbo\Views\vProduits.sql" />
     <Build Include="dbo\Views\vDemandesDevis.sql" />
-    <Build Include="dbo\StoredProcedures\Devis\spDevisGetOne.sql" />
     <Build Include="dbo\StoredProcedures\Adresses\spAdressesGetByUtilisateurId.sql" />
     <Build Include="dbo\Functions\fGenerateReference.sql" />
     <Build Include="dbo\Views\vRandomInt.sql" />
-    <Build Include="dbo\StoredProcedures\DemandeDevis\spDemandesDevisGetAllByUtilisateurId.sql" />
-    <Build Include="dbo\StoredProcedures\DemandeDevis\spDemandesDevisDelete.sql" />
-    <Build Include="dbo\StoredProcedures\DemandeDevis\spDemandesDevisGetByIdForUser.sql" />
-    <Build Include="dbo\StoredProcedures\DemandeDevis\spDemandesDevisGetByIdForStaff.sql" />
     <Build Include="dbo\Views\vDevis.sql" />
-    <Build Include="dbo\StoredProcedures\Devis\spDevisSubmit.sql" />
     <Build Include="dbo\StoredProcedures\Devis\spDevisUpdate.sql" />
     <Build Include="dbo\StoredProcedures\Devis\spDevisDecision.sql" />
     <Build Include="dbo\StoredProcedures\Details\spDetailsInsert.sql" />
+    <Build Include="dbo\StoredProcedures\DemandeDevis\spDemandesDevisAddProduit.sql" />
   </ItemGroup>
   <ItemGroup>
     <None Include="dbo\Scrypts\Script.sql" />

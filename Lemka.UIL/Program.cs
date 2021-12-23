@@ -108,6 +108,7 @@ builder.Services.AddScoped<IDemandeDevisRepository, DemandeDevisRepository>();
 builder.Services.AddScoped<IDevisRepository, DevisRepository>();
 builder.Services.AddScoped<IRendezVousRepository, RendezVousRepository>();
 builder.Services.AddScoped<IDetailRepository, DetailRepository>();
+builder.Services.AddScoped<IProduitRepository, ProduitRepository>();
 
 /**************/
 /*  Services  */
@@ -129,6 +130,7 @@ builder.Services.AddScoped<IDemandeDevisService, DemandeDevisService>();
 builder.Services.AddScoped<IDevisService, DevisService>();
 builder.Services.AddScoped<IRendezVousService, RendezVousService>();
 builder.Services.AddScoped<IDetailService, DetailService>();
+builder.Services.AddScoped<IProduitService, ProduitService>();
 
 #endregion
 

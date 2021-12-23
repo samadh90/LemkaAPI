@@ -18,7 +18,8 @@ public class DevisRepository : IDevisRepository
 
     public DevisData? Get(int demandeDevisId)
     {
-        Command command = new("spDevisGetOne", true);
+        string query = "SELECT * FROM dbo.[vDevis] WHERE [DemandeDevisId] = @DemandeDevisId";
+        Command command = new(query);
         command.AddParameter("DemandeDevisId", demandeDevisId);
         return _connection.ExecuteReader(command, r => r.ToDevis()).SingleOrDefault();
     }
@@ -52,6 +53,14 @@ public class DevisRepository : IDevisRepository
     public bool Delete(int demandeDevisId)
     {
         string query = "DELETE FROM dbo.[Devis] WHERE [DemandeDevisId] = @DemandeDevisId";
+        Command command = new(query);
+        command.AddParameter("DemandeDevisId", demandeDevisId);
+        return _connection.ExecuteNonQuery(command) > 0;
+    }
+
+    public bool Submit(int demandeDevisId)
+    {
+        string query = "UPDATE dbo.[Devis] SET [SubmittedAt] = GETDATE() WHERE [DemandeDevisId] = @DemandeDevisId";
         Command command = new(query);
         command.AddParameter("DemandeDevisId", demandeDevisId);
         return _connection.ExecuteNonQuery(command) > 0;

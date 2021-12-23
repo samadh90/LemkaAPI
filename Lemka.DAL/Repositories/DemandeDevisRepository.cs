@@ -41,7 +41,7 @@ public class DemandeDevisRepository : IDemandeDevisRepository
     public int Create(int userId, DemandeDevisData data)
     {
         Command command = new("spDemandesDevisInsert", true);
-        command.AddParameter("", userId);
+        command.AddParameter("UtilisateurId", userId);
         command.AddParameter("Titre", data.Titre);
         command.AddParameter("Remarque", data.Remarque);
         command.AddParameter("MensurationId", data.MensurationId);
@@ -52,7 +52,8 @@ public class DemandeDevisRepository : IDemandeDevisRepository
 
     public bool Update(int key, DemandeDevisData data)
     {
-        Command command = new("spDemandesDevisUpdate", true);
+        string query = "UPDATE dbo.DemandeDevis SET [Titre] = @Titre, [Remarque] = @Remarque, [MensurationId] = @MensurationId, [ServiceId] = @ServiceId, [EstUrgent] = @EstUrgent WHERE [Id] = @Id AND [SubmittedAt] IS NULL";
+        Command command = new(query);
         command.AddParameter("Id", key);
         command.AddParameter("Titre", data.Titre);
         command.AddParameter("Remarque", data.Remarque);
@@ -72,14 +73,15 @@ public class DemandeDevisRepository : IDemandeDevisRepository
 
     public bool Submit(int id)
     {
-        Command command = new("spDemandesDevisSubmit", true);
+        string query = "UPDATE dbo.[DemandeDevis] SET [SubmittedAt] = GETDATE() WHERE [Id] = @Id AND [SubmittedAt] IS NULL";
+        Command command = new(query);
         command.AddParameter("Id", id);
         return _connection.ExecuteNonQuery(command) > 0;
     }
 
     public IEnumerable<ProduitData> GetProduits(int ddId)
     {
-        string query = "SELECT p.* FROM dbo.DemandeDevisProduits ddp INNER JOIN dbo.Produits p ON ddp.ProduitId = p.Id WHERE ddp.DemandeDevisId = @DemandeDevisId";
+        string query = "SELECT p.* FROM dbo.[DemandeDevisProduits] ddp INNER JOIN dbo.[vProduits] p ON ddp.[ProduitId] = p.[Id] WHERE ddp.[DemandeDevisId] = @DemandeDevisId";
         Command command = new(query);
         command.AddParameter("DemandeDevisId", ddId);
         return _connection.ExecuteReader(command, r => r.ToProduit());
@@ -87,10 +89,7 @@ public class DemandeDevisRepository : IDemandeDevisRepository
 
     public bool AddProduit(int ddId, int pId)
     {
-        StringBuilder query = new StringBuilder();
-        query.Append("IF NOT EXISTS (SELECT TOP 1 * FROM dbo.DemandeDevisProduits WHERE [DemandeDevisId] = @DemandeDevisId AND [ProduitId] = @ProduitId) BEGIN ");
-        query.Append("INSERT INTO dbo.DemandeDevisProduits ([DemandeDevisId], [ProduitId]) VALUES (@DemandeDevisId, @ProduitId) END");
-        Command command = new(query.ToString());
+        Command command = new("spDemandesDevisAddProduit", true);
         command.AddParameter("DemandeDevisId", ddId);
         command.AddParameter("ProduitId", pId);
         return _connection.ExecuteNonQuery(command) > 0;
@@ -98,10 +97,8 @@ public class DemandeDevisRepository : IDemandeDevisRepository
 
     public bool DeleteProduit(int ddId, int pId)
     {
-        StringBuilder query = new StringBuilder();
-        query.Append("IF EXISTS (SELECT TOP 1 * FROM dbo.DemandeDevisProduits WHERE [DemandeDevisId] = @DemandeDevisId AND [ProduitId] = @ProduitId) BEGIN ");
-        query.Append("DELETE FROM dbo.DemandeDevisProduits WHERE [DemandeDevisId] = @DemandeDevisId AND [ProduitId] = @ProduitId END");
-        Command command = new(query.ToString());
+        string query = "DELETE FROM dbo.[DemandeDevisProduits] WHERE [DemandeDevisId] = DemandeDevisId AND [ProduitId] = @ProduitId";
+        Command command = new(query);
         command.AddParameter("DemandeDevisId", ddId);
         command.AddParameter("ProduitId", pId);
         return _connection.ExecuteNonQuery(command) > 0;

@@ -9,4 +9,5 @@ public interface IDevisRepository
     bool Update(int demandeDevisId, DevisData devisData);
     bool Update(int demandeDevisId, bool accepter);
     bool Delete(int demandeDevisId);
+    bool Submit(int demandeDevisId);
 }

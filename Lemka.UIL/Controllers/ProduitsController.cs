@@ -1,4 +1,7 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using Lemka.BLL.Interfaces;
+using Lemka.UIL.Mappers;
+using Lemka.UIL.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Lemka.UIL.Controllers
@@ -8,6 +11,13 @@ namespace Lemka.UIL.Controllers
     [Authorize("IsConnected")]
     public class ProduitsController : ControllerBase
     {
+        private readonly IProduitService _produitService;
+
+        public ProduitsController(IProduitService produitService)
+        {
+            _produitService = produitService;
+        }
+
         #region Produit
 
         [HttpGet]
@@ -16,7 +26,8 @@ namespace Lemka.UIL.Controllers
         {
             try
             {
-                return Ok();
+                IEnumerable<ProduitModel> produits = _produitService.GetAll().Select(x => x.ToUil());
+                return Ok(produits);
             }
             catch (Exception e)
             {
@@ -30,7 +41,9 @@ namespace Lemka.UIL.Controllers
         {
             try
             {
-                return Ok();
+                ProduitModel? produit = _produitService.GetById(id)?.ToUil();
+                if (produit is null) return NotFound();
+                return Ok(produit);
             }
             catch (Exception e)
             {

@@ -16,7 +16,7 @@ public class DetailRepository : IDetailRepository
 
     public IEnumerable<DetailData> GetAll(int devisId)
     {
-        string query = "SELECT * FROM dbo.Details WHERE [DevisId] = @DevisId";
+        string query = "SELECT * FROM dbo.[Details] WHERE [DevisId] = @DevisId";
         Command command = new(query);
         command.AddParameter("DevisId", devisId);
         return _connection.ExecuteReader(command, r => r.ToDetail());
@@ -24,7 +24,7 @@ public class DetailRepository : IDetailRepository
 
     public DetailData? GetById(int id)
     {
-        string query = "SELECT * FROM dbo.Details WHERE [Id] = @Id";
+        string query = "SELECT * FROM dbo.[Details] WHERE [Id] = @Id";
         Command command = new(query);
         command.AddParameter("Id", id);
         return _connection.ExecuteReader(command, r => r.ToDetail()).SingleOrDefault();
