@@ -9,92 +9,92 @@ public class DemandeDevisService : IDemandeDevisService
 {
     private readonly IDemandeDevisRepository _demandeDevisRepository;
     private readonly IServiceRepository _serviceRepository;
+    private readonly IMensurationRepository _mensurationRepository;
 
-    public DemandeDevisService(IDemandeDevisRepository demandeDevisRepository, IServiceRepository serviceRepository)
+    public DemandeDevisService(IDemandeDevisRepository demandeDevisRepository, IServiceRepository serviceRepository, IMensurationRepository mensurationRepository)
     {
         _demandeDevisRepository = demandeDevisRepository;
         _serviceRepository = serviceRepository;
-    }
-
-    public DemandeDevisEntity? Create(DemandeDevisEntity entity)
-    {
-        int id = _demandeDevisRepository.Create(entity.ToDal());
-        if (id == 0) return null;
-        return GetById(id);
-    }
-
-    public DemandeDevisEntity? CreateForUser(int userId, DemandeDevisEntity entity)
-    {
-        int id = _demandeDevisRepository.CreateForUser(userId, entity.ToDal());
-        if (id == 0) return null;
-        return GetById(id);
-    }
-
-    public bool Delete(int key)
-    {
-        return _demandeDevisRepository.Delete(key);
-    }
-
-    public bool DemandeDevisAjouterProduit(int ddId, int pId)
-    {
-        return _demandeDevisRepository.DemandeDevisAjouterProduit(ddId, pId);
-    }
-
-    public bool DemandeDevisDeleteProduit(int ddId, int pId)
-    {
-        return _demandeDevisRepository.DemandeDevisDeleteProduit(ddId, pId);
+        _mensurationRepository = mensurationRepository;
     }
 
     public IEnumerable<DemandeDevisEntity> GetAll()
     {
-        List<DemandeDevisEntity> demandesDevis = _demandeDevisRepository.GetAll().Select(x => x.ToBll()).ToList();
+        IEnumerable<DemandeDevisEntity> demandesDevis = _demandeDevisRepository.GetAll().Select(x => x.ToBll());
         if (demandesDevis.Count() > 0)
         {
-            foreach (DemandeDevisEntity demandeDevis in demandesDevis)
-            {
-                demandeDevis.Service = _serviceRepository.GetById(demandeDevis.ServiceId)?.ToBll();
-            }
+            demandesDevis = SetDemandesDevisService(demandesDevis);
         }
         return demandesDevis;
     }
 
-    public IEnumerable<DemandeDevisEntity> GetAllByUserId(int userId)
+    public IEnumerable<DemandeDevisEntity> GetAll(int userId)
     {
-        List<DemandeDevisEntity> demandesDevis = _demandeDevisRepository.GetAll().Select(x => x.ToBll()).ToList();
+        IEnumerable<DemandeDevisEntity> demandesDevis = _demandeDevisRepository.GetAll(userId).Select(x => x.ToBll());
         if (demandesDevis.Count() > 0)
         {
-            foreach (DemandeDevisEntity demandeDevis in demandesDevis)
-            {
-                demandeDevis.Service = _serviceRepository.GetById(demandeDevis.ServiceId)?.ToBll();
-            }
+            demandesDevis = SetDemandesDevisService(demandesDevis);
         }
         return demandesDevis;
     }
 
-    public DemandeDevisEntity? GetById(int key)
+    public DemandeDevisEntity? GetById(int id)
     {
-        DemandeDevisEntity? demandeDevis = _demandeDevisRepository.GetById(key)?.ToBll();
-        if (demandeDevis is null) return null;
+        DemandeDevisEntity? demandeDevis = _demandeDevisRepository.GetById(id)?.ToBll();
+        if (demandeDevis == null) return null;
         demandeDevis.Service = _serviceRepository.GetById(demandeDevis.ServiceId)?.ToBll();
         return demandeDevis;
     }
 
-    public IEnumerable<ProduitEntity> GetDemandeDevisProduits(int ddId)
+    public DemandeDevisEntity? Create(int userId, DemandeDevisEntity entity)
     {
-        return _demandeDevisRepository.GetDemandeDevisProduits(ddId).Select(x => x.ToBll());
-    }
-
-    public DemandeDevisEntity? Submit(int id)
-    {
-        bool success = _demandeDevisRepository.Submit(id);
-        if (!success) return null;
+        int id = _demandeDevisRepository.Create(userId, entity.ToDal());
+        if (id == 0) return null;
         return GetById(id);
     }
 
-    public DemandeDevisEntity? Update(int key, DemandeDevisEntity entity)
+    public DemandeDevisEntity? Update(int userId, DemandeDevisEntity entity)
     {
-        bool success = _demandeDevisRepository.Update(key, entity.ToDal());
+        bool success = _demandeDevisRepository.Update(userId, entity.ToDal());
         if (!success) return null;
-        return GetById(key);
+        return GetById(userId);
+    }
+
+    public bool Delete(int id)
+    {
+        return _demandeDevisRepository.Delete(id);
+    }
+
+    public bool Submit(int id)
+    {
+        return _demandeDevisRepository.Submit(id);
+    }
+
+    public IEnumerable<ProduitEntity> GetProduits(int ddId)
+    {
+        throw new NotImplementedException();
+    }
+
+    public bool AddProduit(int ddId, int pId)
+    {
+        throw new NotImplementedException();
+    }
+
+    public bool DeleteProduit(int ddId, int pId)
+    {
+        throw new NotImplementedException();
+    }
+
+    private IEnumerable<DemandeDevisEntity> SetDemandesDevisService(IEnumerable<DemandeDevisEntity> list)
+    {
+        foreach (DemandeDevisEntity item in list)
+        {
+            item.Service = _serviceRepository.GetById(item.ServiceId)?.ToBll();
+            if (item.MensurationId is not null)
+            {
+                item.Mensuration = _mensurationRepository.GetMensuration((int)item.MensurationId)?.ToBll();
+            }
+            yield return item;
+        }
     }
 }

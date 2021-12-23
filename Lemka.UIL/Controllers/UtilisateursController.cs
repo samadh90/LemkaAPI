@@ -22,6 +22,7 @@ public class UtilisateursController : ControllerBase
     private readonly IDevisService _devisService;
     private readonly IRendezVousService _rendezVousService;
     private readonly IHoraireService _horaireService;
+    private readonly IDetailService _detailService;
 
     public UtilisateursController(
         IUtilisateurService utilisateurService,
@@ -30,7 +31,8 @@ public class UtilisateursController : ControllerBase
         IDemandeDevisService demandeDevisService,
         IDevisService devisService,
         IRendezVousService rendezVousService,
-        IHoraireService horaireService)
+        IHoraireService horaireService,
+        IDetailService detailService)
     {
         _utilisateurService = utilisateurService;
         _adresseService = adresseService;
@@ -39,6 +41,7 @@ public class UtilisateursController : ControllerBase
         _devisService = devisService;
         _rendezVousService = rendezVousService;
         _horaireService = horaireService;
+        _detailService = detailService;
     }
 
     #region UTILISATEURS
@@ -279,7 +282,7 @@ public class UtilisateursController : ControllerBase
         try
         {
             if (!ConnectedUserIsStaffOrOwner(id)) return Unauthorized();
-            IEnumerable<DemandeDevisModel> demandesDevis = _demandeDevisService.GetAllByUserId(id).Select(x => x.ToUil());
+            IEnumerable<DemandeDevisModel> demandesDevis = _demandeDevisService.GetAll(id).Select(x => x.ToUil());
             return Ok(demandesDevis);
         }
         catch (Exception e)
@@ -295,7 +298,7 @@ public class UtilisateursController : ControllerBase
         try
         {
             if (!ConnectedUserIsStaffOrOwner(id)) return Unauthorized();
-            DemandeDevisModel? demandeDevis = _demandeDevisService.CreateForUser(id, form.ToBll())?.ToUil();
+            DemandeDevisModel? demandeDevis = _demandeDevisService.Create(id, form.ToBll())?.ToUil();
             if (demandeDevis is null) return BadRequest();
             return Ok(demandeDevis);
         }
@@ -369,8 +372,9 @@ public class UtilisateursController : ControllerBase
             DemandeDevisModel? demandeDevis = _demandeDevisService.GetById(ddId)?.ToUil();
             if (demandeDevis is null) return NotFound();
             if (demandeDevis.SubmittedAt is not null) return BadRequest("La demande a déjà été soumise.");
-            demandeDevis = _demandeDevisService.Submit(ddId)?.ToUil();
-            if (demandeDevis is null) return BadRequest();
+            bool success = _demandeDevisService.Submit(ddId);
+            if (!success) return BadRequest();
+            demandeDevis = _demandeDevisService.GetById(id)?.ToUil();
             return Ok(demandeDevis);
         }
         catch (Exception e)
@@ -389,7 +393,7 @@ public class UtilisateursController : ControllerBase
         try
         {
             if (!ConnectedUserIsStaffOrOwner(id)) return Unauthorized();
-            IEnumerable<ProduitModel> produits = _demandeDevisService.GetDemandeDevisProduits(ddId).Select(x => x.ToUil());
+            IEnumerable<ProduitModel> produits = _demandeDevisService.GetProduits(ddId).Select(x => x.ToUil());
             return Ok(produits);
         }
         catch (Exception e)
@@ -405,9 +409,9 @@ public class UtilisateursController : ControllerBase
         try
         {
             if (!ConnectedUserIsStaffOrOwner(id)) return Unauthorized();
-            bool success = _demandeDevisService.DemandeDevisAjouterProduit(ddId, id);
+            bool success = _demandeDevisService.AddProduit(ddId, id);
             if (!success) return BadRequest();
-            IEnumerable<ProduitModel> produits = _demandeDevisService.GetDemandeDevisProduits(ddId).Select(x => x.ToUil());
+            IEnumerable<ProduitModel> produits = _demandeDevisService.GetProduits(ddId).Select(x => x.ToUil());
             return Ok(produits);
         }
         catch (Exception e)
@@ -422,9 +426,9 @@ public class UtilisateursController : ControllerBase
         try
         {
             if (!ConnectedUserIsStaffOrOwner(id)) return Unauthorized();
-            bool success = _demandeDevisService.DemandeDevisDeleteProduit(ddId, id);
+            bool success = _demandeDevisService.DeleteProduit(ddId, id);
             if (!success) return BadRequest();
-            IEnumerable<ProduitModel> produits = _demandeDevisService.GetDemandeDevisProduits(ddId).Select(x => x.ToUil());
+            IEnumerable<ProduitModel> produits = _demandeDevisService.GetProduits(ddId).Select(x => x.ToUil());
             return Ok(produits);
         }
         catch (Exception e)
@@ -443,7 +447,7 @@ public class UtilisateursController : ControllerBase
         try
         {
             if (!ConnectedUserIsStaffOrOwner(id)) return Unauthorized();
-            DevisModel? devis = _devisService.GetDevisForDD(ddId)?.ToUil();
+            DevisModel? devis = _devisService.Get(ddId)?.ToUil();
             if (devis is null) return NotFound();
             return Ok(devis);
         }
@@ -460,12 +464,11 @@ public class UtilisateursController : ControllerBase
         try
         {
             if (!ConnectedUserIsStaffOrOwner(id)) return Unauthorized();
-            DevisModel? devis = _devisService.GetDevisForDD(ddId)?.ToUil();
+            DevisModel? devis = _devisService.Get(ddId)?.ToUil();
             if (devis is null) return NotFound();
             if (devis.EstAccepte is not null) return BadRequest("Vous avez déja donnée un décision à ce dévis.");
-            bool success = _devisService.DevisDecisionFromUser(ddId, form.EstAccepte);
-            if (!success) return BadRequest();
-            devis = _devisService.GetDevisForDD(ddId)?.ToUil();
+            devis = _devisService.Update(ddId, form.Accepter)?.ToUil();
+            if (devis is null) return BadRequest();
             return Ok(devis);
         }
         catch (Exception e)
@@ -485,7 +488,7 @@ public class UtilisateursController : ControllerBase
         {
             if (!ConnectedUserIsStaffOrOwner(id)) return Unauthorized();
 
-            IEnumerable<DetailModel> details = _devisService.GetDetailsDuDevis(dId).Select(x => x.ToUil());
+            IEnumerable<DetailModel> details = _detailService.GetAll(dId).Select(x => x.ToUil());
             return Ok(details);
         }
         catch (Exception e)

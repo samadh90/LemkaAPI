@@ -16,4 +16,5 @@ public class DemandeDevisEntity
     public DateTime? SubmittedAt { get; set; }
     public bool? DevisStatut { get; set; }
     public bool? DevisDecision { get; set; }
+    public bool EstArchive { get; set; }
 }

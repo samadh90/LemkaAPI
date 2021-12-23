@@ -16,11 +16,13 @@ public class DemandesDevisController : ControllerBase
 {
     private readonly IDemandeDevisService _demandeDevisService;
     private readonly IDevisService _devisService;
+    private readonly IDetailService _detailService;
 
-    public DemandesDevisController(IDemandeDevisService demandeDevisService, IDevisService devisService)
+    public DemandesDevisController(IDemandeDevisService demandeDevisService, IDevisService devisService, IDetailService detailService)
     {
         _demandeDevisService = demandeDevisService;
         _devisService = devisService;
+        _detailService = detailService;
     }
 
     [HttpGet]
@@ -57,7 +59,7 @@ public class DemandesDevisController : ControllerBase
     {
         try
         {
-            IEnumerable<ProduitModel> produits = _demandeDevisService.GetDemandeDevisProduits(id).Select(x => x.ToUil());
+            IEnumerable<ProduitModel> produits = _demandeDevisService.GetProduits(id).Select(x => x.ToUil());
             return Ok(produits);
         }
         catch (Exception e)
@@ -71,7 +73,7 @@ public class DemandesDevisController : ControllerBase
     {
         try
         {
-            DevisModel? devis = _devisService.GetDevisForDD(id)?.ToUil();
+            DevisModel? devis = _devisService.Get(id)?.ToUil();
             if (devis is null) return NotFound();
             return Ok(devis);
         }
@@ -87,9 +89,8 @@ public class DemandesDevisController : ControllerBase
         if (!ModelState.IsValid) return BadRequest(ModelState);
         try
         {
-            bool success = _devisService.CreateDevisForDD(id, form.Remarque);
-            if (!success) return BadRequest();
-            DevisModel? devis = _devisService.GetDevisForDD(id)?.ToUil();
+            DevisModel? devis = _devisService.Create(id, form.ToBll())?.ToUil();
+            if (devis is null) return BadRequest();
             return Ok(devis);
         }
         catch (Exception e)
@@ -104,9 +105,8 @@ public class DemandesDevisController : ControllerBase
         if (!ModelState.IsValid) return BadRequest(ModelState);
         try
         {
-            bool success = _devisService.UpdateDevisForDD(id, form.Remarque);
-            if (!success) return BadRequest();
-            DevisModel? devis = _devisService.GetDevisForDD(id)?.ToUil();
+            DevisModel? devis = _devisService.Update(id, form.ToBll())?.ToUil();
+            if (devis is null) return BadRequest();
             return Ok(devis);
         }
         catch (Exception e)
@@ -120,7 +120,7 @@ public class DemandesDevisController : ControllerBase
     {
         try
         {
-            IEnumerable<DetailModel> details = _devisService.GetDetailsDuDevis(dId).Select(x => x.ToUil());
+            IEnumerable<DetailModel> details = _detailService.GetAll(dId).Select(x => x.ToUil());
             return Ok(details);
         }
         catch (Exception e)
@@ -134,10 +134,9 @@ public class DemandesDevisController : ControllerBase
     {
         try
         {
-            bool success = _devisService.AjouterDetailAuDevis(dId, form.ToBll());
-            if (!success) return BadRequest();
-            IEnumerable<DetailModel> details = _devisService.GetDetailsDuDevis(dId).Select(x => x.ToUil());
-            return Ok(details);
+            DetailModel? detail = _detailService.Create(dId, form.ToBll())?.ToUil();
+            if (detail is null) return BadRequest();
+            return Ok(detail);
         }
         catch (Exception e)
         {
@@ -150,10 +149,9 @@ public class DemandesDevisController : ControllerBase
     {
         try
         {
-            bool success = _devisService.ModifierDetailDuDevis(dtId, form.ToBll());
-            if (!success) return BadRequest();
-            IEnumerable<DetailModel> details = _devisService.GetDetailsDuDevis(dId).Select(x => x.ToUil());
-            return Ok(details);
+            DetailModel? detail = _detailService.Update(dId, form.ToBll())?.ToUil();
+            if (detail is null) return BadRequest();
+            return Ok(detail);
         }
         catch (Exception e)
         {
@@ -166,10 +164,9 @@ public class DemandesDevisController : ControllerBase
     {
         try
         {
-            bool success = _devisService.SupprimerDetailDuDevis(dtId);
+            bool success = _detailService.Delete(dId);
             if (!success) return BadRequest();
-            IEnumerable<DetailModel> details = _devisService.GetDetailsDuDevis(dId).Select(x => x.ToUil());
-            return Ok(details);
+            return Ok();
         }
         catch (Exception e)
         {

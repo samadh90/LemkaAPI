@@ -7,6 +7,6 @@ public class DetailEntity
     public decimal PrixUHt { get; set; }
     public double Quantite { get; set; }
     public double Tva { get; set; }
-    public decimal TotalTva { get; set; }
-    public decimal TotalHT { get; set; }
+    public decimal TotalTva { get => PrixUHt * (decimal)Quantite * (decimal)Tva; }
+    public decimal TotalHT { get => PrixUHt * (decimal)Quantite; }
 }

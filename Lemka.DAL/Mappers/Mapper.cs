@@ -170,7 +170,8 @@ internal static class Mapper
             CreatedAt = (DateTime)record["CreatedAt"],
             SubmittedAt = (record["SubmittedAt"] is DBNull) ? null : (DateTime)record["SubmittedAt"],
             DevisStatut = (record["DevisStatut"] is DBNull) ? null : (bool)record["DevisStatut"],
-            DevisDecision = (record["DevisDecision"] is DBNull) ? null : (bool)record["DevisDecision"]
+            DevisDecision = (record["DevisDecision"] is DBNull) ? null : (bool)record["DevisDecision"],
+            EstArchive = (bool)record["EstArchive"]
         };
     }
 
@@ -185,8 +186,9 @@ internal static class Mapper
             TotalTTC = (record["TotalTTC"] is DBNull) ? null : (decimal)record["TotalTTC"],
             EstAccepte = (record["EstAccepte"] is DBNull) ? null : (bool)record["EstAccepte"],
             CreatedAt = (DateTime)record["CreatedAt"],
-            SubmittedAt = (record["SubmittedAt"] is DBNull) ? null : (DateTime)record["SubmittedAt"]
-            // TODO - Échéance au dévis + X Semaines/Mois à partir de SubmittedAt.
+            SubmittedAt = (record["SubmittedAt"] is DBNull) ? null : (DateTime)record["SubmittedAt"],
+            ExpiresAt = (record["SubmittedAt"] is DBNull) ? null : (DateTime)record["SubmittedAt"],
+            ExpiresInDays = (int)record["ExpiresInDays"]
         };
     }
 
@@ -209,12 +211,11 @@ internal static class Mapper
     {
         return new() {
             Id = (int)record["Id"],
+            DevisId = (int)record["DevisId"],
             Designation = (string)record["Designation"],
             PrixUHt = (decimal)record["PrixUHt"],
             Quantite = (double)record["Quantite"],
             Tva = (double)record["Tva"],
-            TotalTva = (decimal)record["TotalTva"],
-            TotalHT = (decimal)record["TotalHT"]
         };
     }
 }

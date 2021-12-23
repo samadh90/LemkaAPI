@@ -14,53 +14,34 @@ public class DevisService : IDevisService
         _devisRepository = devisRepository;
     }
 
-    public bool AjouterDetailAuDevis(int devisId, DetailEntity data)
+    public DevisEntity? Get(int demandeDevisId)
     {
-        return _devisRepository.AjouterDetailAuDevis(devisId, data.ToDal());
+        return _devisRepository.Get(demandeDevisId)?.ToBll();
     }
 
-    public bool CreateDevisForDD(int ddId, string? remarque)
+    public DevisEntity? Create(int demandeDevisId, DevisEntity data)
     {
-        return _devisRepository.CreateDevisForDD(ddId, remarque);
+        bool success = _devisRepository.Create(demandeDevisId, data.ToDal());
+        if (!success) return null;
+        return Get(demandeDevisId);
     }
 
-    public bool DevisDecisionFromUser(int ddId, bool estAccepte)
+    public DevisEntity? Update(int demandeDevisId, DevisEntity devisData)
     {
-        return _devisRepository.DevisDecisionFromUser(ddId, estAccepte);
+        bool success = _devisRepository.Update(demandeDevisId, devisData.ToDal());
+        if (!success) return null;
+        return Get(demandeDevisId);
     }
 
-    public DevisEntity? GetById(int id)
+    public DevisEntity? Update(int demandeDevisId, bool accepter)
     {
-        return _devisRepository.GetById(id)?.ToBll();
+        bool succes = _devisRepository.Update(demandeDevisId, accepter);
+        if (!succes) return null;
+        return Get(demandeDevisId);
     }
 
-    public IEnumerable<DetailEntity> GetDetailsDuDevis(int devisId)
+    public bool Delete(int demandeDevisId)
     {
-        return _devisRepository.GetDetailsDuDevis(devisId).Select(x => x.ToBll());
-    }
-
-    public DevisEntity? GetDevisForDD(int ddId)
-    {
-        return _devisRepository.GetDevisForDD(ddId)?.ToBll();
-    }
-
-    public bool ModifierDetailDuDevis(int detailId, DetailEntity data)
-    {
-        return _devisRepository.ModifierDetailDuDevis(detailId, data.ToDal());
-    }
-
-    public bool SubmitDevis(int ddId)
-    {
-        return _devisRepository.SubmitDevis(ddId);
-    }
-
-    public bool SupprimerDetailDuDevis(int detailId)
-    {
-        return _devisRepository.SupprimerDetailDuDevis(detailId);
-    }
-
-    public bool UpdateDevisForDD(int ddId, string? remarque)
-    {
-        return _devisRepository.UpdateDevisForDD(ddId, remarque);
+        return _devisRepository.Delete(demandeDevisId);
     }
 }

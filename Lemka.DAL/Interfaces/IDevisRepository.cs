@@ -4,14 +4,9 @@ namespace Lemka.DAL.Interfaces;
 
 public interface IDevisRepository
 {
-    DevisData? GetDevisForDD(int ddId);
-    DevisData? GetById(int id);
-    bool CreateDevisForDD(int ddId, string? remarque);
-    bool UpdateDevisForDD(int ddId, string? remarque);
-    bool SubmitDevis(int ddId);
-    bool DevisDecisionFromUser(int ddId, bool estAccepte);
-    IEnumerable<DetailData> GetDetailsDuDevis(int devisId);
-    bool AjouterDetailAuDevis(int devisId, DetailData data);
-    bool ModifierDetailDuDevis(int detailId, DetailData data);
-    bool SupprimerDetailDuDevis(int detailId);
+    DevisData? Get(int demandeDevisId);
+    bool Create(int demandeDevisId, DevisData data);
+    bool Update(int demandeDevisId, DevisData devisData);
+    bool Update(int demandeDevisId, bool accepter);
+    bool Delete(int demandeDevisId);
 }

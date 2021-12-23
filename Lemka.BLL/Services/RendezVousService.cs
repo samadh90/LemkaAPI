@@ -11,7 +11,10 @@ public class RendezVousService : IRendezVousService
     private readonly IServiceRepository _serviceRepository;
     private readonly IDevisRepository _devisRepository;
 
-    public RendezVousService(IRendezVousRepository rendezVousRepository, IServiceRepository serviceRepository, IDevisRepository devisRepository)
+    public RendezVousService(
+        IRendezVousRepository rendezVousRepository, 
+        IServiceRepository serviceRepository, 
+        IDevisRepository devisRepository)
     {
         _rendezVousRepository = rendezVousRepository;
         _serviceRepository = serviceRepository;
@@ -47,7 +50,7 @@ public class RendezVousService : IRendezVousService
         RendezVousEntity? rendezVous = _rendezVousRepository.GetById(key)?.ToBll();
         if (rendezVous is null) return null;
         rendezVous.Service = _serviceRepository.GetById(rendezVous.ServiceId)?.ToBll();
-        if (rendezVous.DevisId is not null) rendezVous.Devis = _devisRepository.GetById(key)?.ToBll();
+        if (rendezVous.DevisId is not null) rendezVous.Devis = _devisRepository.Get(key)?.ToBll();
         return rendezVous;
     }
 

@@ -2,12 +2,16 @@
 
 namespace Lemka.DAL.Interfaces;
 
-public interface IDemandeDevisRepository : IRepositoryBase<int, DemandeDevisData>
+public interface IDemandeDevisRepository
 {
-    IEnumerable<DemandeDevisData> GetAllByUserId(int userId);
-    int CreateForUser(int userId, DemandeDevisData data);
+    IEnumerable<DemandeDevisData> GetAll();
+    IEnumerable<DemandeDevisData> GetAll(int userId);
+    DemandeDevisData? GetById(int id);
+    int Create(int userId, DemandeDevisData data);
+    bool Update(int userId, DemandeDevisData data);
+    bool Delete(int id);
     bool Submit(int id);
-    IEnumerable<ProduitData> GetDemandeDevisProduits(int ddId);
-    bool DemandeDevisAjouterProduit(int ddId, int pId);
-    bool DemandeDevisDeleteProduit(int ddId, int pId);
+    IEnumerable<ProduitData> GetProduits(int ddId);
+    bool AddProduit(int ddId, int pId);
+    bool DeleteProduit(int ddId, int pId);
 }

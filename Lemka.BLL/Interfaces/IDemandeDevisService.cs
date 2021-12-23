@@ -2,12 +2,16 @@
 
 namespace Lemka.BLL.Interfaces;
 
-public interface IDemandeDevisService : IServiceBase<int, DemandeDevisEntity>
+public interface IDemandeDevisService
 {
-    IEnumerable<DemandeDevisEntity> GetAllByUserId(int userId);
-    DemandeDevisEntity? CreateForUser(int userId, DemandeDevisEntity entity);
-    DemandeDevisEntity? Submit(int id);
-    IEnumerable<ProduitEntity> GetDemandeDevisProduits(int ddId);
-    bool DemandeDevisAjouterProduit(int ddId, int pId);
-    bool DemandeDevisDeleteProduit(int ddId, int pId);
+    IEnumerable<DemandeDevisEntity> GetAll();
+    IEnumerable<DemandeDevisEntity> GetAll(int userId);
+    DemandeDevisEntity? GetById(int id);
+    DemandeDevisEntity? Create(int userId, DemandeDevisEntity entity);
+    DemandeDevisEntity? Update(int userId, DemandeDevisEntity entity);
+    bool Delete(int id);
+    bool Submit(int id);
+    IEnumerable<ProduitEntity> GetProduits(int ddId);
+    bool AddProduit(int ddId, int pId);
+    bool DeleteProduit(int ddId, int pId);
 }

@@ -72,6 +72,10 @@ internal static class Mapper
     {
         DemandeDevisModel  demandeDevis = MapperExtension.Map<DemandeDevisModel>(entity);
         demandeDevis.Service = entity.Service?.ToUil();
+        if (entity.Mensuration is not null)
+        {
+            demandeDevis.Mensuration = entity.Mensuration.ToUil();
+        }
         return demandeDevis;
     }
     internal static DemandeDevisEntity ToBll(this DemandeDevisForm form) => MapperExtension.Map<DemandeDevisEntity>(form);

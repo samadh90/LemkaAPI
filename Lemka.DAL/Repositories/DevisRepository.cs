@@ -5,7 +5,8 @@ using DevHopTools.Connection;
 
 namespace Lemka.DAL.Repositories;
 
-// TODO - Implémenter Devis Repository
+// @DemandeDevisId INT, @Remarque TEXT, @ExpiresInDays INT
+
 public class DevisRepository : IDevisRepository
 {
     private readonly Connection _connection;
@@ -15,56 +16,44 @@ public class DevisRepository : IDevisRepository
         _connection = connection;
     }
 
-    public bool AjouterDetailAuDevis(int devisId, DetailData data)
+    public DevisData? Get(int demandeDevisId)
     {
-        throw new NotImplementedException();
-    }
-
-    public bool CreateDevisForDD(int ddId, string? remarque)
-    {
-        throw new NotImplementedException();
-    }
-
-    public bool DevisDecisionFromUser(int ddId, bool estAccepte)
-    {
-        throw new NotImplementedException();
-    }
-
-    public DevisData? GetById(int id)
-    {
-        throw new NotImplementedException();
-    }
-
-    public IEnumerable<DetailData> GetDetailsDuDevis(int devisId)
-    {
-        string query = "SELECT [Desgination], [PrixUHt], [Quantite], [] FROM dbo.[Details] WHERE [DevisId] = @DevisId";
-        throw new NotImplementedException();
-    }
-
-    public DevisData? GetDevisForDD(int ddId)
-    {
-        Command command = new("spDevisGetByDDId", true);
-        command.AddParameter("@DemandeDevisId", ddId);
+        Command command = new("spDevisGetOne", true);
+        command.AddParameter("DemandeDevisId", demandeDevisId);
         return _connection.ExecuteReader(command, r => r.ToDevis()).SingleOrDefault();
     }
 
-    public bool ModifierDetailDuDevis(int detailId, DetailData data)
+    public bool Create(int demandeDevisId, DevisData data)
     {
-        throw new NotImplementedException();
+        Command command = new("spDevisInsert", true);
+        command.AddParameter("DemandeDevisId", demandeDevisId);
+        command.AddParameter("Remarque", data.Remarque);
+        command.AddParameter("ExpiresInDays", data.ExpiresInDays);
+        return _connection.ExecuteNonQuery(command) > 0;
     }
 
-    public bool SubmitDevis(int ddId)
+    public bool Update(int demandeDevisId, DevisData data)
     {
-        throw new NotImplementedException();
+        Command command = new("spDevisUpdate", true);
+        command.AddParameter("DemandeDevisId", demandeDevisId);
+        command.AddParameter("Remarque", data.Remarque);
+        command.AddParameter("ExpiresInDays", data.ExpiresInDays);
+        return _connection.ExecuteNonQuery(command) > 0;
     }
 
-    public bool SupprimerDetailDuDevis(int detailId)
+    public bool Update(int demandeDevisId, bool accepter)
     {
-        throw new NotImplementedException();
+        Command command = new("spDevisDecision", true);
+        command.AddParameter("DemandeDevisId", demandeDevisId);
+        command.AddParameter("Decision", accepter);
+        return _connection.ExecuteNonQuery(command) > 0;
     }
 
-    public bool UpdateDevisForDD(int ddId, string? remarque)
+    public bool Delete(int demandeDevisId)
     {
-        throw new NotImplementedException();
+        string query = "DELETE FROM dbo.[Devis] WHERE [DemandeDevisId] = @DemandeDevisId";
+        Command command = new(query);
+        command.AddParameter("DemandeDevisId", demandeDevisId);
+        return _connection.ExecuteNonQuery(command) > 0;
     }
 }
