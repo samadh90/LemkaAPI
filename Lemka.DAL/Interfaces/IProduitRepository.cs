@@ -9,4 +9,5 @@ namespace Lemka.DAL.Interfaces;
 
 public interface IProduitRepository : IRepositoryBase<int, ProduitData>
 {
+    IEnumerable<ProduitData> GetAll(string? search);
 }

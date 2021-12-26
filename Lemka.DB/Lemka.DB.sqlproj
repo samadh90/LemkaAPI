@@ -137,6 +137,7 @@
     <Build Include="dbo\StoredProcedures\Devis\spDevisDecision.sql" />
     <Build Include="dbo\StoredProcedures\Details\spDetailsInsert.sql" />
     <Build Include="dbo\StoredProcedures\DemandeDevis\spDemandesDevisAddProduit.sql" />
+    <Build Include="dbo\Views\vDetails.sql" />
   </ItemGroup>
   <ItemGroup>
     <None Include="dbo\Scrypts\Script.sql" />

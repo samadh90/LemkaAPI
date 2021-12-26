@@ -31,6 +31,11 @@ public class ProduitRepository : IProduitRepository
         return _connection.ExecuteReader(command, r => r.ToProduit());
     }
 
+    public IEnumerable<ProduitData> GetAll(string? search)
+    {
+        throw new NotImplementedException();
+    }
+
     public ProduitData? GetById(int key)
     {
         string query = "SELECT * from dbo.[vProduits] WHERE [Id] = @Id";

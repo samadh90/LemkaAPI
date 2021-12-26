@@ -2,4 +2,7 @@
 
 namespace Lemka.BLL.Interfaces;
 
-public interface IProduitService : IServiceBase<int, ProduitEntity> { }
+public interface IProduitService : IServiceBase<int, ProduitEntity>
+{
+    IEnumerable<ProduitEntity> GetAll(string? search);
+}

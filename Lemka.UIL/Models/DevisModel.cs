@@ -11,4 +11,5 @@ public class DevisModel
     public decimal? TotalTTC { get; set; }
     public DateTime CreatedAt { get; set; }
     public DateTime? SubmittedAt { get; set; }
+    public DateTime? ExpiresAt { get; set; }
 }

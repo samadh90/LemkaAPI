@@ -22,11 +22,17 @@ namespace Lemka.UIL.Controllers
 
         [HttpGet]
         [AllowAnonymous]
-        public IActionResult Get()
+        public IActionResult Get(string? search = null)
         {
             try
             {
                 IEnumerable<ProduitModel> produits = _produitService.GetAll().Select(x => x.ToUil());
+                if (search is not null)
+                {
+                    produits = produits.Where(produit => 
+                    produit.Titre.Contains(search.Trim()) || 
+                    produit.Description.Contains(search.Trim()));
+                }
                 return Ok(produits);
             }
             catch (Exception e)

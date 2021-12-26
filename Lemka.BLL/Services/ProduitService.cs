@@ -31,6 +31,11 @@ public class ProduitService : IProduitService
         return _produitRepository.GetAll().Select(x => x.ToBll());
     }
 
+    public IEnumerable<ProduitEntity> GetAll(string? search)
+    {
+        return _produitRepository.GetAll(search).Select(x => x.ToBll());
+    }
+
     public ProduitEntity? GetById(int key)
     {
         return _produitRepository.GetById(key)?.ToBll();

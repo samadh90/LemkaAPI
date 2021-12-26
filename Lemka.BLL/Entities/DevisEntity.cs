@@ -3,7 +3,7 @@
 public class DevisEntity
 {
     public int Id { get; set; }
-    public string Numero { get; set; }
+    public string Reference { get; set; }
     public string? Remarque { get; set; }
     public int ExpiresInDays { get; set; }
     public bool? EstAccepte { get; set; }

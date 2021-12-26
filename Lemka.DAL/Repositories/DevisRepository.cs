@@ -52,7 +52,7 @@ public class DevisRepository : IDevisRepository
 
     public bool Delete(int demandeDevisId)
     {
-        string query = "DELETE FROM dbo.[Devis] WHERE [DemandeDevisId] = @DemandeDevisId";
+        string query = "DELETE FROM dbo.[Devis] WHERE [DemandeDevisId] = @DemandeDevisId AND [SubmittedAt] IS NULL";
         Command command = new(query);
         command.AddParameter("DemandeDevisId", demandeDevisId);
         return _connection.ExecuteNonQuery(command) > 0;

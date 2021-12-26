@@ -2,8 +2,8 @@
 AS
 SELECT 
 	p.*,
-	CAST(t.[Taux] AS DECIMAL) AS 'Tva',
-	CAST(px.Montant AS DECIMAL) AS 'Prix',
+	CAST(t.[Taux] AS DECIMAL(9,2)) AS 'Tva',
+	CAST(px.Montant AS DECIMAL(9,2)) AS 'Prix',
 	px.[IsPromotion],
 	ps.[Nom] AS 'Statut',
 	i.[Image]
