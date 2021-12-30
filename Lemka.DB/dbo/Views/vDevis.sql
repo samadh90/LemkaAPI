@@ -7,7 +7,7 @@ SELECT
 	ds.[TotalTTC],
 	CAST(DATEADD(day, d.[ExpiresInDays], d.[SubmittedAt]) AS DATE) AS 'ExpiresAt'
 FROM dbo.Devis d
-INNER JOIN (
+LEFT JOIN (
 	SELECT
 		[DevisId],
 		SUM([TotalTVA]) AS TotalTva,

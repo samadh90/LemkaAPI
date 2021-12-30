@@ -43,6 +43,10 @@ public class DemandeDevisService : IDemandeDevisService
         DemandeDevisEntity? demandeDevis = _demandeDevisRepository.GetById(id)?.ToBll();
         if (demandeDevis == null) return null;
         demandeDevis.Service = _serviceRepository.GetById(demandeDevis.ServiceId)?.ToBll();
+        if (demandeDevis.MensurationId is not null)
+        {
+            demandeDevis.Mensuration = _mensurationRepository.GetMensuration((int)demandeDevis.MensurationId)?.ToBll();
+        }
         return demandeDevis;
     }
 
