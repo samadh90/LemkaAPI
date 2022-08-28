@@ -105,12 +105,12 @@ SET IDENTITY_INSERT dbo.Horaires OFF
 -- Create first dummy data
 
 -- Création d'un admin
-EXEC dbo.spUtilisateursRegister 'samadh90@hotmail.fr', 'Samadh9022+', 'Hatsijev', 'Samad';
+EXEC dbo.spUtilisateursRegister 'test2@test.com', 'HelloWorld!', 'Kent', 'Clark';
 EXEC dbo.spUtilisateursUpdateStatut 1, 2;
 UPDATE dbo.UtilisateurRoles SET [RoleId] = 1 WHERE [UtilisateurId] = 1;
 
 -- Création d'un membre
-EXEC dbo.spUtilisateursRegister 'zamira_1994@hotmail.com', 'Samadh9022+', 'Hatsijeva', 'Samira';
+EXEC dbo.spUtilisateursRegister 'test@test.com', 'HelloWorld!', 'Price', 'John';
 EXEC dbo.spUtilisateursUpdateStatut 2, 2;
 EXEC dbo.spMensurationsInsert 2, N'Premiere mensuration', N'Simple description', 1;
 EXEC dbo.spDemandesDevisInsert 2, N'Réparation de la tirette du pantalon', N'C''est une tirette verte de 10 cm', 1, 2, 0;
